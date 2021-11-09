@@ -55,22 +55,22 @@ export default {
         const json = await req.json();        
         return json;
     },
-    //lista todos os barbeiros
-    getBarbers: async (lat=null, lng=null, address=null) => {
+    
+    getClientes: async (lat=null, lng=null, address=null) => {
         const token = await AsyncStorage.getItem('token');
 
         console.log("LAT", lat);
         console.log("LNG", lng);
         console.log("ADDRESS", address);
 
-        const req = await fetch(`${BASE_API}/barbers?token=${token}&lat=${lat}&lng=${lng}&address=${address}`);
+        const req = await fetch(`${BASE_API}/clients?token=${token}&lat=${lat}&lng=${lng}&address=${address}`);
         const json = await req.json();
         return json;
     },
-    getBarber: async (id)=>{
+    getClients: async (id)=>{
         const token = await AsyncStorage.getItem('token');
 
-        const req = await fetch(`${BASE_API}/barber/${id}?token=${token}`);
+        const req = await fetch(`${BASE_API}/clients/${id}?token=${token}`);
         const json = await req.json();
         return json;
     }

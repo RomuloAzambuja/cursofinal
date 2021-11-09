@@ -5,7 +5,8 @@ import Swiper from 'react-native-swiper';
 
 import Stars from '../../Components/Stars';
 import BackIcon from '../../../assets/back.svg';
-
+import NavprevIcon from '../../../assets/nav_prev.svg';
+import NavNextIcon from '../../../assets/nav_next.svg';
 import favoriteIcon from '../../../assets/favorite.svg';
 
 import { 
@@ -136,9 +137,20 @@ export default ()=>{
                     
                      </ServiceArea>
                     }
-                    <TestimonialArea>
+                    {userInfo.testimonials && userInfo.testimonials.length > 0 && 
+                            <TestimonialArea>
+                               <Swiper
+                                    style={{height: 110}}
+                                    showsButtons={true}
+                                    showsPagination={false}
+                                    prevButton={<NavprevIcon width="35" height="35"/>}
+                                    nextButton={<NavNextIcon width="35" heigth="35"/>}
+                               >
 
-                    </TestimonialArea>
+                               </Swiper>
+                            </TestimonialArea>
+                    
+                    }
                 </PageBody>
            </Scroller>
            <BackButton onPress={handleBackButton}>
