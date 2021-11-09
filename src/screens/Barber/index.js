@@ -8,6 +8,7 @@ import BackIcon from '../../../assets/back.svg';
 import NavprevIcon from '../../../assets/nav_prev.svg';
 import NavNextIcon from '../../../assets/nav_next.svg';
 import favoriteIcon from '../../../assets/favorite.svg';
+import favoriteFullIcon from '../../../assets/favorite_full.svg';
 
 import { 
     Container,
@@ -44,7 +45,7 @@ import {
 
 } from './style';
 
-//import Api from "../../Api";
+import Api from "../../Api";
 
 
 
@@ -59,24 +60,30 @@ export default ()=>{
         stars: route.params.stars
     });
 
-    const [loading, setloading] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [favorited, setFavorited] = useState(false);
 
     useEffect( ()=>{
         const getBarberInfo = async ()=> {
-            setloading = (true);
+            setLoading = (true);
             let json= await getBarber(userInfo.id);
             if (json.error == ''){
                 setUserInfo(json.data);
+                setFavorited(json.data.favorited);
             }else{
                 console.log("Erro: "+json.error)
             }
-            setloading= (false);
+            setLoading= (false);
         }
         getBarberInfo();
     }, [] );
             //fazer um layout com fotos 
         const handleBackButton = ()=>{
             navigation.goBack();
+        }
+
+        const handleFavClick =()=>{
+            setFavorited (!favorited);
         }
 
     return (
@@ -114,8 +121,14 @@ export default ()=>{
                             <UserInfoName>{userInfo.name}</UserInfoName>
                             <Stars stars={userInfo.stars} showNumber={true}/>
                         </UserInfo>
-                        <UserFavButton>
-                            <favoriteIcon height="24" width="24" fill="#ff0000"/>
+                        <UserFavButton onPress={handleFavClick}>
+                            {favorited ?
+
+                                <favoriteFullIcon height="24" width="24" fill="#ff0000"/>
+                                :
+                                <favoriteIcon height="24" width="24" fill="#ff0000"/>
+
+                            }
                         </UserFavButton>
  
                     </UserInfoArea>
