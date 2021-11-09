@@ -20,7 +20,7 @@ import {
     PageBody,
     UserInfoArea,
     ServiceArea,
-    TestimonialArea,
+    
     UserAvatar,
     UserInfo,
     UserInfoName,
@@ -34,7 +34,13 @@ import {
     ServicesTitle,
     ServicePrice,
     ServiceChooseButton,
-    ServiceChooseBtnText
+    ServiceChooseBtnText,
+
+    TestimonialArea,
+    TestimonialInfo,
+    TestimonialName,
+    TestimonialItem,
+    TestimonialBody
 
 } from './style';
 
@@ -143,10 +149,21 @@ export default ()=>{
                                     style={{height: 110}}
                                     showsButtons={true}
                                     showsPagination={false}
-                                    prevButton={<NavprevIcon width="35" height="35"/>}
-                                    nextButton={<NavNextIcon width="35" heigth="35"/>}
+                                    prevButton={<NavprevIcon width="35" height="35" fill="#000000"/>}
+                                    nextButton={<NavNextIcon width="35" heigth="35" fill="#000000"/>}
                                >
-
+                                   {userInfo.testimonials.map(( item, key )=>(
+                                      
+                                       <TestimonialItem key={key}>
+                                           <TestimonialInfo>
+                                               <TestimonialName>{item.name}</TestimonialName>
+                                                <Stars stars={item.rate} showNumber={false}/>
+                                           </TestimonialInfo>
+                                            <TestimonialBody>
+                                                {item.body}
+                                            </TestimonialBody>
+                                       </TestimonialItem>    
+                                   ))}
                                </Swiper>
                             </TestimonialArea>
                     
