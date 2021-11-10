@@ -73,6 +73,23 @@ export default {
         const req = await fetch(`${BASE_API}/clients/${id}?token=${token}`);
         const json = await req.json();
         return json;
-    }
+    },
+
+    setFavorite: async (barberId)=>{
+        const token = await AsyncStorage.getItem('token');
+
+        const req = await fetch(`${BASE_API}/user/favorite`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({barber:barberId})
+        });
+        const json = await req.json();        
+        return json;
+    },
+    
 
 };
+

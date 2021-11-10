@@ -4,6 +4,9 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import Swiper from 'react-native-swiper';
 
 import Stars from '../../Components/Stars';
+import orderModal from '../../Components/OrderModal';
+
+
 import BackIcon from '../../../assets/back.svg';
 import NavprevIcon from '../../../assets/nav_prev.svg';
 import NavNextIcon from '../../../assets/nav_next.svg';
@@ -62,6 +65,8 @@ export default ()=>{
 
     const [loading, setLoading] = useState(false);
     const [favorited, setFavorited] = useState(false);
+    const [selectedService, setSelectedServide] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect( ()=>{
         const getBarberInfo = async ()=> {
@@ -84,6 +89,11 @@ export default ()=>{
 
         const handleFavClick =()=>{
             setFavorited (!favorited);
+            Api.setFavorite(userInfo.id);
+        }
+        const handleServiceChoose =(key)=>{
+                setSelectedServide(key);
+                setShowModal(true);
         }
 
     return (
@@ -146,7 +156,7 @@ export default ()=>{
                                          <ServiceName>{item.name}</ServiceName>
                                     <ServicePrice>R${item.price}</ServicePrice>
                                     </ServiceInfo>
-                                    <ServiceChooseButton>
+                                    <ServiceChooseButton onPress={()=>handleServiceChoose(key)}>
                                         <ServiceChooseBtnText>Agendar</ServiceChooseBtnText>
                                     </ServiceChooseButton>
                                 
@@ -186,6 +196,13 @@ export default ()=>{
            <BackButton onPress={handleBackButton}>
                <BackIcon width="44" height="44" fill="#FFFFFF"/>
            </BackButton>
+
+           <orderModal
+            show={showModal}
+            setShow={setShowModal}
+            user={userInfo}
+            service={selectedService}
+           />
        </Container>
     );
 }
