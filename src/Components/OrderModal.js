@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { useNavigation} from '@react-navigation/native';
 import { Modal } from "react-native";
 
-import ExpendIcon from '../../assets/expend.svg';
-import { UserAvatar } from "../screens/Barber/style";
+import ExpendIcon from '../../assets/expand.svg';
+import ServerContext from "@react-navigation/native/lib/typescript/src/ServerContext";
+
 
 const ModalArea = styled.View`
     flex: 1;
@@ -46,8 +47,6 @@ const UserAvatar = styled.Image`
     height: 56px;
     border-radius: 20px;
     margin-right: 15px;
-
-
 `;
 
 const UserName = styled.Text`
@@ -55,6 +54,58 @@ const UserName = styled.Text`
     font-size: 18px;
     font-weight: bold;
 `;
+
+const ServiceInfo = styled.View`
+    flex-direction: row;
+    justify-content: space-between;
+`;
+const ServiceName = styled.Text`
+    font-size: 16px;
+    font-weight: bold;
+`;
+const ServicePrice = styled.Text`
+    font-size: 16px;
+    font-weight: bold;
+`;
+
+const FinishButton = styled.TouchableOpacity`
+    background-color: #cbd081;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+`;
+
+
+const finishiButtonText = styled.Text`
+    color: #918868;
+    font-size: 17px;
+    font-weight: bold;
+`;
+const months  =[
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro'
+];
+
+const days = [
+    'Dom',
+    'Seg',
+    'Ter',
+    'Qua',
+    'Qui',
+    'Sex',
+    'Sab'
+];
+
 
 
 export default ( show, setShow, user, service )=>{
@@ -65,6 +116,10 @@ export default ( show, setShow, user, service )=>{
 
     const handleCloseButton = ()=> {
         setShow (false);
+    }
+
+    const handleFinishClick =() =>{
+
     }
     
     return (
@@ -85,6 +140,19 @@ export default ( show, setShow, user, service )=>{
                             <UserAvatar source={{uri: user.avatar}}/>
                             <UserName>{user.name}</UserName>
                         </UserInfo>
+                    </ModalItem>
+                    <ModalItem>
+                        {service !=null &&
+                            <ServiceInfo>
+                                <ServiceName>
+                                    {user.service[service].name}
+                                </ServiceName>
+                                <ServicePrice>R$ {user.service[service].price.toFixed(2)}</ServicePrice>
+                            </ServiceInfo>
+                        }
+                        <FinishButton onPress={handleFinishClick}>
+                            <finishiButtonText>Finalizar a Agendamento!</finishiButtonText>
+                        </FinishButton>
                     </ModalItem>
                 </ModalBody>
             </ModalArea>
