@@ -4,6 +4,8 @@ import { useNavigation} from '@react-navigation/native';
 import { Modal } from "react-native";
 
 import ExpendIcon from '../../assets/expand.svg';
+import NavPrevIcon from '../../assets/nav_prev.svg;'
+import NavNextIcon from '../../assets/nav_next.svg;'
 import ServerContext from "@react-navigation/native/lib/typescript/src/ServerContext";
 
 
@@ -82,6 +84,36 @@ const finishiButtonText = styled.Text`
     font-size: 17px;
     font-weight: bold;
 `;
+
+const DateInfo = styled.View`
+    flex-direction: row;
+`;
+
+const DatePrevArea = styled.TouchableOpacity`
+    flex: 1;
+    justify-content: flex-end;
+    align-items: flex-end;
+`;
+
+const DateTitleArea = styled.View`
+    width: 140px;
+    justifi-content: center;
+    align-items: center;
+`;
+
+const DateTile = styled.Text`
+    font-size:17px;
+    font-weigth: bold;
+    color: #000000;
+`;
+
+const NavNextArea = styled.TouchableOpacity`
+    flex: 1;
+    align-items: flex-start;
+`;
+
+
+
 const months  =[
     'Janeiro',
     'Fevereiro',
@@ -153,6 +185,20 @@ export default ( show, setShow, user, service )=>{
                         <FinishButton onPress={handleFinishClick}>
                             <finishiButtonText>Finalizar a Agendamento!</finishiButtonText>
                         </FinishButton>
+                    </ModalItem>
+                    <ModalItem>
+                        <DateInfo>
+                            <DatePrevArea>
+                                <NavPrevIcon width="35" height="35" fill="#000000"/>
+                            </DatePrevArea>
+                            <DateTitleArea>
+                                <DateTile>Novembro 2021</DateTile>
+                            </DateTitleArea>
+
+                            <DateNextArea>
+                            <NavNextIcon width="35" height="35" fill="#000000"/>
+                            </DateNextArea>
+                        </DateInfo>
                     </ModalItem>
                 </ModalBody>
             </ModalArea>
